@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>EGDI Vocabularies</title>
+
+    <link rel="stylesheet" id="bootswatch" href="css/bootstrap.css"> <!-- bootswatch simplex modified-->
+    <link rel="stylesheet" href="css/FontAwesome/all.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/fuse.min.js" charset="utf-8"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/pv_config.js"></script>
+    <script src="js/pv.js"></script>
+    <script src="js/Editor.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div id="pageContent" class="col-lg-8">
+                <!-- Page description -->
+                <div id="page_desc"></div>
+                <!-- <hr> -->
+                <!-- Project descriptions -->
+                <div id="proj_desc">
+                    <div class="progress">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <!-- other descriptions -->
+                <div id="other_desc"></div>
+                <br>
+            </div>
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <!-- Search Widget -->
+                <div id="search_widget" class="card my-4 text-white bg-success mb-3">
+                    <h7 class="card-header" style="font-weight: 300;">
+                        <div style="text-align: left;"><a href="javascript:window.location.href = BASE;">home</a> |
+                            <a target=”_blank” href="https://github.com/GeoEra-GIP/WP4-Semantics/tree/master/Project%20Vocabularies#geoera-project-vocabularies">docs</a> |
+                            <a target=”_blank” href="https://resource.geosphere.at/graphdb/webapi">API</a> | 
+                            <a target=”_blank” href="https://github.com/schmar00/project-vocabularies/raw/master/rdf/GeoERA_GIP-P_WP4_ProjectVocabularies_Oct2021.zip">download</a> |
+                            <a target=”_blank” href="https://www.europe-geology.eu/cookie-policy/">privacy</a>
+                        </div>
+                    </h7>
+                    <div id="searchCard" class="card-body">
+                        <div id="searchGroup" class="input-group">
+                            <input id="searchInput" type="text" class="form-control" placeholder="Search for...">
+                            <div style="position: absolute; top: 39px;">
+                                <table id="dropdown" class="table table-hover"></table>
+                            </div>
+                            <span class="input-group-btn"><button id="searchBtn" class="btn btn-success"
+                                    type="button">Go!</button></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side Widgets -->
+                <div id="image_links"></div>
+                <!-- Side Widgets -->
+                <div id="proj_links"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
