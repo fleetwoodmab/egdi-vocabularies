@@ -451,30 +451,35 @@ function rdfCS(v) { //create concept scheme RDF for download IN PROGRESS
 
 function details(divID, uri, voc_uri) { //build the web page content
     $('#' + divID).append(`<form id="irdfForm" target="_blank" style="display:none;" method="post" action="${ENDPOINT}"><input type="hidden" name="query" id="irdfQuery"/></form>`);
-
+    
     let query = encodeURIComponent(`PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
         PREFIX dcterms: <http://purl.org/dc/terms/>
+        PREFIX adms: <http://www.w3.org/ns/adms#>
         SELECT DISTINCT ?s ?p ?o (GROUP_CONCAT(DISTINCT CONCAT(STR(?L), "@", lang(?L)) ; separator="|") AS ?Label)
         (COUNT(distinct(?sr)) AS ?count) (GROUP_CONCAT(?source ; separator="|") AS ?pdf)
+        #(IRI(STRBEFORE(STR(?s),(CONCAT("/",REPLACE(STR(?s), "^.*/([^/]*)$", "$1"))))) as ?x) only test
+        (COALESCE(?stat,"") AS ?status)  
         WHERE {
         VALUES ?uri {<${uri}>}
         OPTIONAL{?new dcterms:replaces ?uri} BIND(COALESCE(?new,?uri) AS ?s)
         {?s ?p ?o .
         OPTIONAL {?o skos:prefLabel ?L}
         OPTIONAL {?o skos:narrower|skos:related ?sr}
+        OPTIONAL {?o adms:status ?stat}
         }UNION{
         VALUES ?p {<http://purl.org/dc/terms/bibliographicCitation>}
         ?s ?x ?r . ?r ?p ?o
         OPTIONAL{?r <http://purl.org/dc/terms/source> ?source}
         }
         }
-        GROUP BY ?s ?p ?o
+        GROUP BY ?s ?p ?o ?stat
         ORDER BY ?Label`);
 
     fetch(ENDPOINT + '?query=' + query + '&Accept=application%2Fsparql-results%2Bjson')
         .then(res => res.json())
         .then(jsonData => {
-            console.log(jsonData);
+            //console.log(jsonData);
+
             if (jsonData.results.bindings.length > 1) {
                 uri = jsonData.results.bindings[0].s.value;
                 for (key in FRONT_LIST) createFrontPart(divID, uri, jsonData, Array.from(FRONT_LIST[key].values()), voc_uri);
@@ -501,7 +506,11 @@ function details(divID, uri, voc_uri) { //build the web page content
                     $('#altLabel').after('<div id="appsInsert" style="float:right;">' + r + '</div>');
                 }
 
-
+                let updateBtn = `<button class="btn btn-outline-primary btn-sm" id="editorLink" onclick="Editor.start();" style="position:absolute;top:0px;right:20px;"><i class="fas fa-pen"></i>&nbsp;&nbsp;Request updates</button>`;
+                if (jsonData.results.bindings.map(a=>a.status.value).includes('http://purl.org/spar/pso/archived')) {
+                    updateBtn = '';
+                }
+                
                 $('#' + divID).append(`<hr>
                         <div style="cursor: pointer; color: #777;" id="detailsBtn"
                         onclick="javascript: toggleRead(\'detailsBtn\', \'detailsToggle\', \'read more\');"><i class="fas fa-caret-right fa-lg"></i><em>&nbsp;&nbsp;read more ..</em>
@@ -509,7 +518,7 @@ function details(divID, uri, voc_uri) { //build the web page content
                         <div style="display:none;position: relative;" id="detailsToggle">
                         <br>
                         <table id="details"></table>
-                        <button class="btn btn-outline-primary btn-sm" id="editorLink" onclick="Editor.start();" style="position:absolute;top:0px;right:20px;"><i class="fas fa-pen"></i>&nbsp;&nbsp;Request updates</button>
+                        ${updateBtn}
                         </div>`);
 
                 let mapCheckArr = jsonData.results.bindings.map(a => [a.p.value, a.o.value]);
