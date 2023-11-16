@@ -506,7 +506,7 @@ function details(divID, uri, voc_uri) { //build the web page content
                     $('#altLabel').after('<div id="appsInsert" style="float:right;">' + r + '</div>');
                 }
 
-                let updateBtn = `<button class="btn btn-outline-primary btn-sm" id="editorLink" onclick="Editor.start();" style="position:absolute;top:0px;right:20px;"><i class="fas fa-pen"></i>&nbsp;&nbsp;Request updates</button>`;
+                let updateBtn = `<button class="btn btn-outline-primary btn-sm" id="editorLink" onclick="Editor.start();" style="position:absolute;top:0px;right:20px;"><i class="fas fa-pen"></i>&nbsp;&nbsp;edit texts</button>`;
                 if (jsonData.results.bindings.map(a=>a.status.value).includes('http://purl.org/spar/pso/archived')) {
                     updateBtn = '';
                 }
