@@ -110,8 +110,8 @@ var Editor = {
 </div>
 `);
 
-            Editor.startLink = `<i class="fas fa-pen"></i>&nbsp; Request updates`;
-            Editor.stopLink = `<i class="fas fa-check"></i>&nbsp; Stop editing`;
+            Editor.startLink = `<i class="fas fa-pen"></i>&nbsp; edit texts`;
+            Editor.stopLink = `<i class="fas fa-check"></i>&nbsp; stop editing`;
 
             $("#editorLink").html(Editor.startLink);
 
