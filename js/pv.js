@@ -106,7 +106,7 @@ ORDER BY ?cs`);
                             <strong>Referenced by:</strong> ${doiLinks(item.isRefBy.value)}
                             &nbsp;&nbsp;&nbsp;
                             <strong>Download:</strong> RDF, TTL,
-                            <a href="${ENDPOINT}?query=${encodeURIComponent(CODELIST_QUERY.replace(/§/g,item.cs.value))}&Accept=application%2Fsparql-results%2Bjson">HTML</a>
+                            <a href="javascript:htmlTable('${item.cs.value}', CODELIST_QUERY)" title="HTML-table">HTML</a>
                         </div>
                     </div>`);
                 });
@@ -446,7 +446,35 @@ function rdfCS(v) { //create concept scheme RDF for download IN PROGRESS
 //"CONSTRUCT {?s ?p ?o} WHERE {VALUES ?s {" + v + "} ?s ?p ?o}";
     document.getElementById('irdfForm').submit();
 }
+//************HTML lists ***********************************************************************
+function htmlTable(uri, qry){
+    fetch(ENDPOINT + '?query=' + encodeURIComponent(qry.replace('§', uri)) + '&Accept=application%2Fsparql-results%2Bjson')
+            .then(res => res.json())
+            .then(jsonData => {
+                let s = 'border: 1px solid black; border-collapse: collapse; word-wrap: break-all; padding:5px;';
+                let rows = jsonData.head.vars; //console.log(rows);
+                let tbl = `<div style="padding:15px;">
+                            <table style="${s}" class="table table-hover">
+                                <tr style="${s}">
+                                    <th style="${s}">${rows.join(`</th><th style="${s}">`)}</th>
+                                </tr>
+                                ${jsonData.results.bindings
+                                    .map(a => `<tr style="${s}">` + 
+                                    rows.map(c => `<td style="${s}${c=='Definition'||c=='scopeNote'?'font-size:70%;':''}">` + 
+                                    createLink(a[c].value) + '</td>').join() + '</tr>').join()}
+                            </table>
+                            </div>`;
+                //var tab = window.open('about:blank', '_blank');
+                //tab.document.write(tbl); 
+                //tab.document.close(); 
+                document.getElementsByTagName('body')[0].innerHTML = tbl;
+                document.getElementsByTagName('div')[0].innerHTML = document.getElementsByTagName('div')[0].innerHTML.replace(/,/g,'');
+            });
+}
 
+function createLink(txt){
+    return txt.substring(0, 4) == 'http' ? '<a href="' + txt + '">' + txt + '</a>' : txt
+}
 //************set the "details page" to view a single concept ***********************************************************************
 
 function details(divID, uri, voc_uri) { //build the web page content
@@ -493,7 +521,7 @@ function details(divID, uri, voc_uri) { //build the web page content
                             </a>
                         </span>
                         <span style="margin-right:15px;">
-                            <a href="${ENDPOINT}?query=${encodeURIComponent(CONCEPTSLIST_QUERY.replace('§', uri))}&format=text/html" title="HTML list">
+                            <a href="javascript:htmlTable('${uri}', CONCEPTSLIST_QUERY)" title="HTML list">
                                 <i class="far fa-list-alt"></i>
                             </a>
                         </span>`;
