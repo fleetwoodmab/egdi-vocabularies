@@ -106,7 +106,7 @@ ORDER BY ?cs`);
                             <strong>Referenced by:</strong> ${doiLinks(item.isRefBy.value)}
                             &nbsp;&nbsp;&nbsp;
                             <strong>Download:</strong> RDF, TTL,
-                            <a href="javascript:htmlTable('${item.cs.value}', CODELIST_QUERY)" title="HTML-table">HTML</a>
+                            <a href="tbl.html?uri=${item.cs.value}" title="table view" target="_blank">HTML</a>
                         </div>
                     </div>`);
                 });
@@ -130,42 +130,6 @@ function doiLinks(a) {
         .join(', ')
     }
 }
-
-//***********************HTML Table download***************************************
-
-let CODELIST_QUERY = `PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
-select ?URI ?Label
-(GROUP_CONCAT(distinct ?n; separator = '; ') as ?Notation)
-(GROUP_CONCAT(distinct ?D; separator = '; ') as ?Definition)
-(GROUP_CONCAT(distinct ?P; separator = '; ') as ?Parents)
-(GROUP_CONCAT(distinct ?N; separator = '; ') as ?scopeNote)
-where {
-<§> skos:hasTopConcept ?tc .
-?tc skos:narrower* ?URI . ?URI skos:prefLabel ?Label filter(lang(?Label)="en")
-optional {?URI skos:notation ?n}
-optional {?URI skos:definition ?D filter(lang(?D)="en")}
-optional {?URI skos:scopeNote ?N filter(lang(?N)="en")}
-optional {?URI skos:broader ?o . ?o skos:prefLabel ?P filter(lang(?P)="en")}
-}
-group by ?URI ?Label
-order by ?Label`;
-
-let CONCEPTSLIST_QUERY = `PREFIX skos:<http://www.w3.org/2004/02/skos/core#>
-select ?URI ?Label
-(GROUP_CONCAT(distinct ?n; separator = '; ') as ?Notation)
-(GROUP_CONCAT(distinct ?D; separator = '; ') as ?Definition)
-(GROUP_CONCAT(distinct ?P; separator = '; ') as ?Parents)
-(GROUP_CONCAT(distinct ?N; separator = '; ') as ?scopeNote)
-where {
-<§> skos:narrower* ?URI . ?URI skos:prefLabel ?Label filter(lang(?Label)="en")
-optional {?URI skos:notation ?n}
-optional {?URI skos:definition ?D filter(lang(?D)="en")}
-optional {?URI skos:scopeNote ?N filter(lang(?N)="en")}
-optional {?URI skos:broader ?o . ?o skos:prefLabel ?P filter(lang(?P)="en")}
-}
-group by ?URI ?Label
-order by ?Label`;
-
 
 //***********************set the input box for concept search****************************************
 
@@ -446,35 +410,7 @@ function rdfCS(v) { //create concept scheme RDF for download IN PROGRESS
 //"CONSTRUCT {?s ?p ?o} WHERE {VALUES ?s {" + v + "} ?s ?p ?o}";
     document.getElementById('irdfForm').submit();
 }
-//************HTML lists ***********************************************************************
-function htmlTable(uri, qry){
-    fetch(ENDPOINT + '?query=' + encodeURIComponent(qry.replace('§', uri)) + '&Accept=application%2Fsparql-results%2Bjson')
-            .then(res => res.json())
-            .then(jsonData => {
-                let s = 'border: 1px solid black; border-collapse: collapse; word-wrap: break-all; padding:5px;';
-                let rows = jsonData.head.vars; //console.log(rows);
-                let tbl = `<div style="padding:15px;">
-                            <table style="${s}" class="table table-hover">
-                                <tr style="${s}">
-                                    <th style="${s}">${rows.join(`</th><th style="${s}">`)}</th>
-                                </tr>
-                                ${jsonData.results.bindings
-                                    .map(a => `<tr style="${s}">` + 
-                                    rows.map(c => `<td style="${s}${c=='Definition'||c=='scopeNote'?'font-size:70%;':''}">` + 
-                                    createLink(a[c].value) + '</td>').join() + '</tr>').join()}
-                            </table>
-                            </div>`;
-                //var tab = window.open('about:blank', '_blank');
-                //tab.document.write(tbl); 
-                //tab.document.close(); 
-                document.getElementsByTagName('body')[0].innerHTML = tbl;
-                document.getElementsByTagName('div')[0].innerHTML = document.getElementsByTagName('div')[0].innerHTML.replace(/,/g,'');
-            });
-}
 
-function createLink(txt){
-    return txt.substring(0, 4) == 'http' ? '<a href="' + txt + '">' + txt + '</a>' : txt
-}
 //************set the "details page" to view a single concept ***********************************************************************
 
 function details(divID, uri, voc_uri) { //build the web page content
@@ -521,7 +457,7 @@ function details(divID, uri, voc_uri) { //build the web page content
                             </a>
                         </span>
                         <span style="margin-right:15px;">
-                            <a href="javascript:htmlTable('${uri}', CONCEPTSLIST_QUERY)" title="HTML list">
+                            <a href="tbl.html?uri=${uri}" title="table view" target="_blank">
                                 <i class="far fa-list-alt"></i>
                             </a>
                         </span>`;
