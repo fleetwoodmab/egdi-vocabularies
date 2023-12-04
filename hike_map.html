@@ -145,7 +145,7 @@
             }
             GROUP BY ?uri`);
 
-        fetch(`https://resource.geolba.ac.at/PoolParty/sparql/geoera?query=${queryDownLoad}&format=application/json`)
+        fetch(`https://resource.geolba.ac.at/PoolParty/sparql/geoera?query=${queryDownLoad}&format=application/json`)  //#TODO
             .then(res => res.json())
             .then(jsonData => {
 
