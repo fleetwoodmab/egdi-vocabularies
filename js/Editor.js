@@ -212,11 +212,11 @@ var Editor = {
                                 c.html(newContent);
                                 if (_after)
                                     _after();
-                            }, error: function (e) {
+                            }/*, error: function (e) {
                                 newContent = newContent.replace("@@proposed", ",\"" + preview + "\"");
                                 c.html(newContent);
                                 $("#result", form).html(e.responseText);
-                            }
+                            } */
                         });
                     }
                 });
