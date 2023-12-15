@@ -201,8 +201,9 @@ var Editor = {
                             },
                             success: function (data) {
                                 //alert(data.result);
+                                let preview ="";
                                 if (data.result != null) {
-                                    let preview = data.result.NEW_VALUE.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
+                                    preview = data.result.NEW_VALUE.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
                                     newContent = newContent.replace("@@proposed", ",\"" + preview + "\"");
                                     newContent += ("&nbsp;<a class='previewLink' href='javascript: Editor.previewAttribute(\"" + attr + "\",\"" + preview + "\", \"" + data.result.CREATED_USER + "\");'><small><font color='red'>" + preview + "</font></small></a> ");
                                 }
