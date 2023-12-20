@@ -125,7 +125,7 @@ var Editor = {
             clearInterval(Editor.__handleTimeout);
         $.ajax({
             type: "GET",
-            url: "https://ticket.geoinformation.dev/ws/keep_aliveCors.php", //#TODO
+            url: "https://www.geolba.net/editor/ws/keep_aliveCors.php", //#TODO
             //url: "ws/keep_aliveCors.php",
             CORS: true,
             secure: true,
@@ -139,7 +139,7 @@ var Editor = {
                     Editor.__handleTimeout = setInterval(function () {
                         $.ajax({
                             type: "GET",
-                            url: "https://ticket.geoinformation.dev/ws/keep_aliveCors.php", //#TODO
+                            url: "https://www.geolba.net/editor/ws/keep_aliveCors.php", //#TODO
                             //url: "ws/keep_aliveCors.php",
                             CORS: true,
                             secure: true,
@@ -186,11 +186,13 @@ var Editor = {
                     let attr = attribute.text().trim();
                     let val = h.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
                     if (Editor.TOPIC_LIST.includes(attr)) {
-                        let newContent = orig_h + "&nbsp;&nbsp;<a class='editorLink' title='Edit value' href='javascript:Editor.editAttribute(\"" + attr + "\"," + (count > 1 ? index : null) + ", \"" + val + "\", \"" + lang + "\"@@proposed);'>edit</a> ";
+                      console.log("Before newContent line:", orig_h, attr, count, index, val, lang);
+                      let newContent = orig_h + "&nbsp;&nbsp;<a class='editorLink' title='Edit value' href='javascript:Editor.editAttribute(\"" + attr + "\"," + (count > 1 ? index : null) + ", \"" + val + "\", \"" + lang + "\"@@proposed);'><i class=\"fas fa-pen\"></i></a> ";
+                      console.log("After newContent line:", newContent);
 
                         $.ajax({
                             type: "POST",
-                            url: "https://ticket.geoinformation.dev/ws/get_topicCors.php", //#TODO
+                            url: "https://www.geolba.net/editor/ws/get_topicCors.php", //#TODO
                             //url: "ws/get_topicCors.php",
                             data: { uri: Editor.uri, oldValue: val, attribute: attr, index: (count > 1 ? index : null), language: lang },
                             CORS: true,
@@ -201,11 +203,11 @@ var Editor = {
                             },
                             success: function (data) {
                                 //alert(data.result);
-                                let preview ="";
+                    
                                 if (data.result != null) {
-                                    preview = data.result.NEW_VALUE.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
+                                    let preview = data.result.NEW_VALUE.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
                                     newContent = newContent.replace("@@proposed", ",\"" + preview + "\"");
-                                    newContent += ("&nbsp;<a class='previewLink' href='javascript: Editor.previewAttribute(\"" + attr + "\",\"" + preview + "\", \"" + data.result.CREATED_USER + "\");'><small><font color='red'>" + preview + "</font></small></a> ");
+                                    newContent += ("&nbsp;<a class='previewLink' href='javascript:Editor.previewAttribute(\"" + attr + "\",\"" + preview + "\", \"" + data.result.CREATED_USER + "\");'><small><font color='red'>" + preview + "</font></small></a> ");
                                 }
                                 else
                                     newContent = newContent.replace("@@proposed", "");
@@ -216,6 +218,7 @@ var Editor = {
                                 newContent = newContent.replace("@@proposed", ",\"" + preview + "\"");
                                 c.html(newContent);
                                 $("#result", form).html(e.responseText);
+                                
                             } */
                         });
                     }
@@ -252,7 +255,7 @@ var Editor = {
 
         $.ajax({
             type: "POST",
-            url: "https://ticket.geoinformation.dev/ws/loginCors.php", //#TODO
+            url: "https://www.geolba.net/editor/ws/loginCors.php", //#TODO
             //url: "ws/login.php",
             data: { user: user, password: pwd },
             CORS: true,
@@ -352,7 +355,7 @@ var Editor = {
         $.ajax({
             type: "POST",
             //url: "ws/write_topicCors.php",
-            url: "https://ticket.geoinformation.dev/ws/write_topicCors.php", //#TODO
+            url: "https://www.geolba.net/editor/ws/write_topicCors.php", //#TODO
             data: { uri: uri, newValue: newValue, oldValue: oldValue, attribute: attribute, index: index, language: language },
             CORS: true,
             secure: true,
@@ -372,7 +375,7 @@ var Editor = {
 
         $.ajax({
           type: "POST",
-          url: "https://ticket.geoinformation.dev/editor/ws/mail.php", //#TODO
+          url: "https://www.geolba.net/editor/editor/ws/mail.php", //#TODO
           data: { send_email: true },
           success: function (data) {
               console.log(data); 
