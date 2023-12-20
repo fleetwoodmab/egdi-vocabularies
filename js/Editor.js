@@ -186,7 +186,7 @@ var Editor = {
                     let attr = attribute.text().trim();
                     let val = h.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
                     if (Editor.TOPIC_LIST.includes(attr)) {
-                        let newContent = orig_h + "&nbsp;&nbsp;<a class='editorLink' title='Edit value' href='javascript: Editor.editAttribute(\"" + attr + "\"," + (count > 1 ? index : null) + ", \"" + val + "\", \"" + lang + "\"@@proposed);'><i class=\"fas fa-pen\"></i></a> ";
+                        let newContent = orig_h + "&nbsp;&nbsp;<a class='editorLink' title='Edit value' href='javascript: Editor.editAttribute(\"" + attr + "\"," + (count > 1 ? index : null) + ", \"" + val + "\", \"" + lang + "\"@@proposed);'>edit</a> ";
 
                         $.ajax({
                             type: "POST",
