@@ -125,6 +125,7 @@ var Editor = {
             clearInterval(Editor.__handleTimeout);
         $.ajax({
             type: "GET",
+            //url: "https://www.geolba.net/editor/ws/mkeep_aliveCors.php",
             url: "https://ticket.geoinformation.dev/ws/keep_aliveCors.php", //#TODO
             //url: "ws/keep_aliveCors.php",
             CORS: true,
@@ -139,6 +140,7 @@ var Editor = {
                     Editor.__handleTimeout = setInterval(function () {
                         $.ajax({
                             type: "GET",
+                            //url: "https://www.geolba.net/editor/ws/keep_aliveCors.php",
                             url: "https://ticket.geoinformation.dev/ws/keep_aliveCors.php", //#TODO
                             //url: "ws/keep_aliveCors.php",
                             CORS: true,
@@ -192,6 +194,7 @@ var Editor = {
 
                         $.ajax({
                             type: "POST",
+                            //url: "https://www.geolba.net/editor/ws/get_topicCors.php",
                             url: "https://ticket.geoinformation.dev/ws/get_topicCors.php", //#TODO
                             //url: "ws/get_topicCors.php",
                             data: { uri: Editor.uri, oldValue: val, attribute: attr, index: (count > 1 ? index : null), language: lang },
@@ -255,6 +258,7 @@ var Editor = {
 
         $.ajax({
             type: "POST",
+            //url: "https://www.geolba.net/editor/ws/loginCors.php",
             url: "https://ticket.geoinformation.dev/ws/loginCors.php", //#TODO
             //url: "ws/login.php",
             data: { user: user, password: pwd },
@@ -355,6 +359,7 @@ var Editor = {
         $.ajax({
             type: "POST",
             //url: "ws/write_topicCors.php",
+            //url: "https://www.geolba.net/editor/ws/write_topicCors.php",
             url: "https://ticket.geoinformation.dev/ws/write_topicCors.php", //#TODO
             data: { uri: uri, newValue: newValue, oldValue: oldValue, attribute: attribute, index: index, language: language },
             CORS: true,
@@ -376,6 +381,7 @@ var Editor = {
         $.ajax({
           type: "POST",
           //url: "ws/mail.php",
+          //url: "https://www.geolba.net/editor/ws/mail.php",
           url: "https://ticket.geoinformation.dev/ws/mail.php", //#TODO
           data: { send_email: true },
           success: function (data) {
