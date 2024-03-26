@@ -259,7 +259,7 @@ var Editor = {
         $.ajax({
             type: "POST",
             //url: "https://www.geolba.net/editor/ws/loginCors.php",
-            url: "https://ticket.geoinformation.dev/ws/loginCors.php", //#TODO
+            url: "https://resource.geosphere.at/updatetool/ws/loginCors.php", //#TODO
             //url: "ws/login.php",
             data: { user: user, password: pwd },
             CORS: true,
