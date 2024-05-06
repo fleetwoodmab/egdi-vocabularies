@@ -383,9 +383,16 @@ var Editor = {
           data: { send_email: true },
           CORS: true,
           secure: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
           success: function (data) {
             console.log(data); 
-          }
+          },
+          error: function (error) {
+            console.error('Error:', error);
+        }
       });
 
         /*$.ajax({
