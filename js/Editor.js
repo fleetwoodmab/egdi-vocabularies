@@ -379,6 +379,17 @@ var Editor = {
 
         $.ajax({
           type: "POST",
+          url: "https://resource.geosphere.at/updatetool/ws/mail.php",
+          data: { send_email: true },
+          CORS: true,
+          secure: true,
+          success: function (data) {
+            console.log(data); 
+          }
+      });
+
+        /*$.ajax({
+          type: "POST",
           //url: "ws/mail.php",
           //url: "https://www.geolba.net/editor/ws/mail.php",
           url: "https://resource.geosphere.at/updatetool/ws/mail.php", //#TODO
@@ -389,7 +400,7 @@ var Editor = {
           error: function (error) {
               console.error('Error:', error);
           }
-      });
+      });*/
     },
     previewAttribute: function (attr, value, user) {
         let form = $('#previewModal');
