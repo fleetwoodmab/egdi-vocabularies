@@ -379,20 +379,15 @@ var Editor = {
 
         $.ajax({
           type: "POST",
-          url: "https://resource.geosphere.at/updatetool/ws/mail.php",
+          url: "https://resource.geosphere.at/updatetool/ws/keep_alive.php",
           data: { send_email: true },
           CORS: true,
           secure: true,
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+          beforeSend: function (xhr) {
+            if (Editor.__authHeader)
+                xhr.setRequestHeader("Authorization", Editor.__authHeader);
           },
-          success: function (data) {
-            console.log(data); 
-          },
-          error: function (error) {
-            console.error('Error:', error);
-        }
+          
       });
 
         /*$.ajax({
