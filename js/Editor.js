@@ -379,7 +379,7 @@ var Editor = {
 
         $.ajax({
           type: "POST",
-          url: "https://resource.geosphere.at/updatetool/ws/keep_alive.php",
+          url: "https://resource.geosphere.at/updatetool/ws/mail.php",
           data: { send_email: true },
           CORS: true,
           secure: true,
