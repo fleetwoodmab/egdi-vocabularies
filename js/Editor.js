@@ -380,7 +380,7 @@ var Editor = {
         $.ajax({
           type: "POST",
           url: "https://resource.geosphere.at/updatetool/ws/mail.php",
-          data: { send_email: true },
+          data: { mail: true },
           CORS: true,
           secure: true,
           beforeSend: function (xhr) {
