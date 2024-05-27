@@ -386,12 +386,6 @@ var Editor = {
             if (Editor.__authHeader)
                 xhr.setRequestHeader("Authorization", Editor.__authHeader);
           },
-          success: function (data) {
-            console.log(data); 
-          },
-          error: function (error) {
-            console.error('Error:', error);
-          } 
       });
 
     },
