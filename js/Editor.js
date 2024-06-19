@@ -377,7 +377,7 @@ var Editor = {
             }
         });
 
-        /*$.ajax({
+        $.ajax({
           type: "POST",
           url: "https://resource.geosphere.at/updatetool/ws/mail.php",
           CORS: true,
@@ -386,7 +386,7 @@ var Editor = {
             if (Editor.__authHeader)
                 xhr.setRequestHeader("Authorization", Editor.__authHeader);
           },
-      });*/
+      });
 
     },
     previewAttribute: function (attr, value, user) {
