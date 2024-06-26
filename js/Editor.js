@@ -65,18 +65,18 @@ var Editor = {
         <form>
           <div class="form-group">
             <label for="userName" class="col-form-label">Username:</label>
-            <input type="text" class="form-control" name="userName" id="userName" />
+            <input type="text" class="form-control" name="userName" id="userName" onkeypress="if(event.key == 'Enter') {Editor.handleLogin();}" />
           </div>
           <div class="form-group">
             <label for="userName" class="col-form-label">Password:</label>
-            <input type="password" class="form-control" name="password" id="password" />
+            <input type="password" class="form-control" name="password" id="password" onkeypress="if(event.key == 'Enter') {Editor.handleLogin();}" />
           </div>
         </form>
         <p id="result" class="text-danger"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onkeypress="if(event.key == 'Enter') {Editor.handleLogin();}" onclick="Editor.handleLogin();">Login</button>
+        <button type="button" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
       </div>
     </div>
   </div>
