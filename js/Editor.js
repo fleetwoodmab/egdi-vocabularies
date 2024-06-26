@@ -248,13 +248,6 @@ var Editor = {
     __authHeader: null,
 
     handleLogin: function () {
-      $(document).ready(function() {
-        $('#loginModal input').keypress(function(e) {
-            if (e.which === 13) { 
-                Editor.handleLogin();
-            }
-        });
-    });
         let form = $('#loginModal');
         let user = $("#userName", form).val();
         let pwd = $("#password", form).val();
@@ -407,6 +400,13 @@ var Editor = {
     
 };
 
+$(document).ready(function() {
+  $('#loginModal input').keypress(function(e) {
+      if (e.which === 13) { 
+          Editor.handleLogin();
+      }
+  });
+});
 
 
 $(document).ready(function () {
