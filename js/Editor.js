@@ -20,7 +20,7 @@ var Editor = {
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editorModalTitle">Editor</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -28,7 +28,7 @@ var Editor = {
         <form>
           <div class="form-group">
             <label for="newValue" class="col-form-label">New text:</label>
-            <textarea class="form-control" name="newValue" id="newValue" rows="7"></textarea>
+            <textarea class="form-control" name="newValue" id="newValue" rows="7" maxlength="100"></textarea>
           </div>
           <div class="form-group" id="divLanguage">
             <label for="language" class="col-form-label">Language:</label>
