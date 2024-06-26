@@ -76,7 +76,7 @@ var Editor = {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
+        <button type="button" class="btn btn-primary" onkeypress="if(event.key == 'Enter') {Editor.handleLogin();}" onclick="Editor.handleLogin();">Login</button>
       </div>
     </div>
   </div>
@@ -389,6 +389,8 @@ var Editor = {
           },
       });
 
+      alert("Changes saved and sent to an administrator for approbation.")
+
     },
     previewAttribute: function (attr, value, user) {
         let form = $('#previewModal');
@@ -399,14 +401,6 @@ var Editor = {
     },
     
 };
-
-$(document).ready(function() {
-  $('#loginModal input').keypress(function(e) {
-      if (e.which === 13) { 
-          Editor.handleLogin();
-      }
-  });
-});
 
 
 $(document).ready(function () {
