@@ -181,7 +181,7 @@ ul.notation li {
     width: 120px;
     text-align: center;
     border: 3px solid white;
-    cursor: pointer;
+    cursor: default;
 }
 
 .skosRelUl {
