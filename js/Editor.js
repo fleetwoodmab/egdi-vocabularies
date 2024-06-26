@@ -76,7 +76,7 @@ var Editor = {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
+        <button type="button" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
       </div>
     </div>
   </div>
@@ -246,7 +246,15 @@ var Editor = {
     },
 
     __authHeader: null,
+
     handleLogin: function () {
+      $(document).ready(function() {
+        $('#loginModal input').keypress(function(e) {
+            if (e.which === 13) { 
+                Editor.handleLogin();
+            }
+        });
+    });
         let form = $('#loginModal');
         let user = $("#userName", form).val();
         let pwd = $("#password", form).val();
