@@ -76,7 +76,7 @@ var Editor = {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
+        <button type="submit" class="btn btn-primary" onclick="Editor.handleLogin();">Login</button>
       </div>
     </div>
   </div>
