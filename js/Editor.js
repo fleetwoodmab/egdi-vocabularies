@@ -180,19 +180,20 @@ var Editor = {
                     let h = c.html();
                     let orig_h = h;
                     let ix = h.indexOf("<span class=\"lang\"");
-                    if (ix > 0)
-                        h = h.substring(0, ix);
+                    if (ix > 0) {
+                        orig_h = h.substring(0, ix); 
+                    }
+                    
                     let attr = attribute.text().trim();
                     let val = $.trim(h).replace(/"/g, '\\"').replace(/'/g, "\\'");
+                    
                     if (val === $.trim(orig_h).replace(/"/g, '\\"').replace(/'/g, "\\'")) {
-                        alert("The suggested value is the same as the existing value.");
-                        return;
+                        alert("The suggested value is the same as the existing value. X");
                     } else {
                         if (Editor.TOPIC_LIST.includes(attr)) {
                             let newContent = orig_h + "&nbsp;&nbsp;<a class='editorLink' title='Edit value' href='javascript:Editor.editAttribute(\"" + attr + "\"," + (count > 1 ? index : null) + ", \"" + val + "\", \"" + lang + "\"@@proposed);'><i class=\"fas fa-pen\"></i></a> ";
                         }
                     }
-
                         $.ajax({
                             type: "POST",
                             //url: "https://www.geolba.net/editor/ws/get_topicCors.php",
