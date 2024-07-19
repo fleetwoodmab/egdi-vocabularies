@@ -205,7 +205,7 @@ var Editor = {
                                 //alert(data.result);
                     
                                 if (data.result != null) {
-                                    let preview = data.result.NEW_VALUE.trim().replace(/^\s+|\s+$/g, "").replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
+                                    let preview = data.result.NEW_VALUE.trim().replaceAll("\"", "\\\"").replaceAll("\'", "\\\'");
                                     newContent = newContent.replace("@@proposed", ",\"" + preview + "\"");
                                     newContent += ("&nbsp;<a class='previewLink' href='javascript:Editor.previewAttribute(\"" + attr + "\",\"" + preview + "\", \"" + data.result.CREATED_USER + "\");'><small><font color='red'>" + preview + "</font></small></a> ");
                                 }
