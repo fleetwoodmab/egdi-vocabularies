@@ -329,7 +329,7 @@ var Editor = {
         let newval = $("#newValue", form);
         $("#result", form).html(null);
         let uri = $("#uri", form).val();
-        let oldValue = $("#oldValue", form).val();
+        let oldValue = $("#oldValue", form).val().trim();
         let newValue = newval.val().trim();
         let attribute = $("#attribute", form).val();
         let index = $("#index", form).val();
@@ -339,6 +339,11 @@ var Editor = {
             Editor.savedEditData = [attribute, index, newValue, language];
             Editor.login();
             return;
+        }
+
+        if (newValue === oldValue) {
+            $("#result", form).html("The suggested value is the same as the current one. No changes submitted.");
+            return;  
         }
 
         var e = /[$?'*#\\^{}<>]+/.exec(newValue);
