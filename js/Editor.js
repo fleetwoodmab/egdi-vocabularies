@@ -330,7 +330,7 @@ var Editor = {
         $("#result", form).html(null);
         let uri = $("#uri", form).val();
         let oldValue = $("#oldValue", form).val();
-        let newValue = newval.val();
+        let newValue = newval.val().trim();
         let attribute = $("#attribute", form).val();
         let index = $("#index", form).val();
         let language = $("#language", form).val();
